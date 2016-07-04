@@ -26,6 +26,10 @@ db.open(function (err, db) {
                         else console.log(result);
                         db.close();
                     });
+                    collection.find({ prices: 25.99 }).toArray(function (err, docs) {
+                        if (err) console.log(err);
+                        else console.log(docs);
+                    });
                 }
                 else console.log(err);
             });
