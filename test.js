@@ -29,12 +29,11 @@ try{
             var elem2 = { _id: 2, name: "이현", phone: "01087963194", email: "haneone15@kaist.ac.kr" };
             async.waterfall([
                 function (callback) {
-                    mycon.insert(collection, elem1, callback(null, null));
+                    mycon.insert(collection, elem1, callback);
                 },
                 function (callback) {
-                    mycon.insert(collection, elem2, callback(null, null));
+                    mycon.insert(collection, elem2, callback);
                 }
-
             ], function (err, res) {
                 if (err) console.log(err);
             });
@@ -42,10 +41,14 @@ try{
         function (collection, callback) {
             log("waterfall 4");
             var cons = {_id:1};
-            var opt  = {};
-            var res = mycon.find(collection , cons, opt);
-            log(res);
-            callback(null, res);
+            var opt = {};
+            async.waterfall([
+                function (callback) { mycon.find(collection, cons, opt, callback);},
+                function (docs, callback) { console.log(docs); callback(null, null);}
+            ], function (err, res) {
+                if (err) callback(err);
+                else callback(null,null);
+            })
         }
     ],
     function (err, result) {

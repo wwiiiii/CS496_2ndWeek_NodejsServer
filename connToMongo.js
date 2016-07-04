@@ -15,21 +15,19 @@ function insertToDb(collection, element, callback)
             callback(null, null);
         }   
     })
-/*
-    try {
-        collection.insert(element, callback);
-    } catch (err) {
-        console.log(err);
-        return err;
-    }
-    return true;*/
 }
 
-function findAllFromDb(collection, constraints, fields)
+function findAllFromDb(collection, constraints, fields, callback)
 {
     collection.find(constraints, fields).toArray(function (err, docs) {
-        if (err) { console.log('findAllFromDb error'); console.log(err);return null; }
-        else return docs;
+        if (err) {
+            console.log('findAllFromDb error');
+            console.log(err);
+            callback(err);
+        }
+        else {
+            callback(null, docs);
+        }
     })
     /*collection.find({ _id: 112233 }, { fields: {title:0}}).toArray(function (err, docs) {
         if (err) console.log(err);
