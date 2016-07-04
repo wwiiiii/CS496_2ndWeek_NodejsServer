@@ -4,16 +4,25 @@
 }
 
 
-function insertToDb(collection, element)
+function insertToDb(collection, element, callback)
 {
     collection.insert(element, function (err, res) {
         if (err) {
             console.log('insertToDb error');
-            console.log(err);
-            return err;
-        }
-        else return res;
-    });
+            callback(err, res);
+        } else {
+            console.log(res);
+            callback(null, null);
+        }   
+    })
+/*
+    try {
+        collection.insert(element, callback);
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+    return true;*/
 }
 
 function findAllFromDb(collection, constraints, fields)
