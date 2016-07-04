@@ -28,7 +28,7 @@ function findAllFromDb(collection, constraints, fields, callback)
         else {
             callback(null, docs);
         }
-    })
+    });
     /*collection.find({ _id: 112233 }, { fields: {title:0}}).toArray(function (err, docs) {
         if (err) console.log(err);
         else console.log('docs' + docs);
