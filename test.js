@@ -35,7 +35,8 @@ try{
                     mycon.insert(collection, elem2, callback);
                 }
             ], function (err, res) {
-                if (err) console.log(err);
+                if (err) callback(err);
+                else callback(null, collection);
             });
         },
         function (collection, callback) {
