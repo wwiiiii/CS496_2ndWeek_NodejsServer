@@ -2,7 +2,7 @@
 var mongodb = require('mongodb');
 var async = require('async');
 var server = new mongodb.Server(server_ip, 27017, { auto_reconnect: true });
-
+var log = console.log;
 var db = new mongodb.Db('mydb', server);
 db.open(function (err, db) {
     if (!err) {
