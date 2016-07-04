@@ -37,7 +37,7 @@ db.open(function (err, db) {
                             function (callback) {
                                 collection.find({ prices: 25.99 }).toArray(function (err, docs) {
                                     if (err) console.log(err);
-                                    else console.log(docs);
+                                    else console.log('docs'+docs);
                                 });
                                 callback();
                             }
