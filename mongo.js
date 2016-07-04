@@ -1,5 +1,6 @@
 ﻿var server_ip = 'localhost';
 var mongodb = require('mongodb');
+var async = require('async');
 var server = new mongodb.Server(server_ip, 27017, { auto_reconnect: true });
 
 var db = new mongodb.Db('mydb', server);
@@ -20,16 +21,37 @@ db.open(function (err, db) {
                         desc: 'this is desc2',
                         prices: 25.99
                     };
-                    collection.insert(widget1);
-                    collection.insert(widget2, { safe: true }, function (err, result) {
-                        if (err) console.log(err);
-                        else console.log(result);
-                        db.close();
-                    });
-                    collection.find({ prices: 25.99 }).toArray(function (err, docs) {
-                        if (err) console.log(err);
-                        else console.log(docs);
-                    });
+                    try {
+                        async.waterfall([
+                            function (callback) {
+                                collection.insert(widget1);
+                                callback();
+                            },
+                            function (callback){
+                                collection.insert(widget2, { safe: true }, function (err, result) {
+                                    if (err) console.log(err);
+                                    else console.log(result);
+                                });
+                                callback();
+                            },
+                            function (callback) {
+                                collection.find({ prices: 25.99 }).toArray(function (err, docs) {
+                                    if (err) console.log(err);
+                                    else console.log(docs);
+                                });
+                                callback();
+                            }
+                        ], function (err, result) {
+                            if (err) throw err;
+                            console.log(result);
+                        })
+
+                    } catch (err) {
+                        console.log('waterfall err' + err);
+                    }
+                    
+                    
+                    db.close();
                 }
                 else console.log(err);
             });
