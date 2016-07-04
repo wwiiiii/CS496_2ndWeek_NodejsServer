@@ -15,13 +15,13 @@ db.open(function (err, db) {
                         title: 'first widget',
                         desc: 'this is desc',
                         prices: 14.99,
-                        _id : wid1
+                        _id : 112233
                     };
                     var widget2 = {
                         title: 'second widget',
                         desc: 'this is desc2',
                         prices: 25.99,
-                        _id : wid2
+                        _id : 445566
                     };
                     try {
                         async.waterfall([
@@ -39,7 +39,7 @@ db.open(function (err, db) {
                             },
                             function (callback) {
                                 console.log('3');
-                                collection.find({ title: 'second widget' }, { fields: {title:0}}).toArray(function (err, docs) {
+                                collection.find({ _id: 112233 }, { fields: {title:0}}).toArray(function (err, docs) {
                                     if (err) console.log(err);
                                     else console.log('docs' + docs);
                                     collection.findOne({}, function (err, doc) { console.log(doc); callback(err);}
