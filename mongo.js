@@ -24,11 +24,11 @@ db.open(function (err, db) {
                     try {
                         async.waterfall([
                             function (callback) {
-                                consoloe.log('start first');
+                                console.log('start first');
                                 collection.insert(widget1, function (err) { callback(err);});
                             },
                             function (callback) {
-                                consoloe.log('start 2');
+                                console.log('start 2');
                                 collection.insert(widget2, { safe: true }, function (err, result) {
                                     //if (err) console.log(err);
                                     //else console.log(result);
@@ -36,7 +36,7 @@ db.open(function (err, db) {
                                 });
                             },
                             function (callback) {
-                                consoloe.log('3');
+                                console.log('3');
                                 collection.find({ title: 'second widget' }, { fields: {title:0}}).toArray(function (err, docs) {
                                     if (err) console.log(err);
                                     else console.log('docs' + docs);
