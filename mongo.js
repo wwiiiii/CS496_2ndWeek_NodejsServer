@@ -24,22 +24,21 @@ db.open(function (err, db) {
                     try {
                         async.waterfall([
                             function (callback) {
-                                collection.insert(widget1);
-                                callback();
+                                collection.insert(widget1, function (err) { callback(err);});
                             },
                             function (callback){
                                 collection.insert(widget2, { safe: true }, function (err, result) {
                                     if (err) console.log(err);
                                     else console.log(result);
+                                    callback(err);
                                 });
-                                callback();
                             },
                             function (callback) {
                                 collection.find({ prices: 25.99 }).toArray(function (err, docs) {
                                     if (err) console.log(err);
-                                    else console.log('docs'+docs);
+                                    else console.log('docs' + docs);
+                                    callback(err);
                                 });
-                                callback();
                             }
                         ], function (err, result) {
                             if (err) throw err;
