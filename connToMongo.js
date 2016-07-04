@@ -11,7 +11,10 @@ function insertToDb(collection, element)
 
 function findAllFromDb(collection, constraints, fields)
 {
-    return collection.find(constraints, fields).toArray()
+    collection.find(constraints, fields).toArray(function (err, docs) {
+        if (err) return null;
+        else return docs;
+    })
     /*collection.find({ _id: 112233 }, { fields: {title:0}}).toArray(function (err, docs) {
         if (err) console.log(err);
         else console.log('docs' + docs);
