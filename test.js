@@ -11,13 +11,15 @@ try{
     async.waterfall([
         function (callback) {
             log("waterfall 1");
-            db.open(function(err,db){
+            db.open(function (err, db) {
+                if (err) log(err);
                 callback(db);
             });        
         },
-        function (callback) {
+        function (db, callback) {
             log("waterfall 2");
-            db.collection('myElement', function(err, collection){
+            db.collection('myElement', function (err, collection) {
+                if (err) log(err);
                 callback(collection);
             });
         },
