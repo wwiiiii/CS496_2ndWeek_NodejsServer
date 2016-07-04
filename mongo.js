@@ -14,12 +14,14 @@ db.open(function (err, db) {
                     var widget1 = {
                         title: 'first widget',
                         desc: 'this is desc',
-                        prices: 14.99
+                        prices: 14.99,
+                        _id : wid1
                     };
                     var widget2 = {
                         title: 'second widget',
                         desc: 'this is desc2',
-                        prices: 25.99
+                        prices: 25.99,
+                        _id : wid2
                     };
                     try {
                         async.waterfall([
@@ -30,8 +32,8 @@ db.open(function (err, db) {
                             function (callback) {
                                 console.log('start 2');
                                 collection.insert(widget2, { safe: true }, function (err, result) {
-                                    //if (err) console.log(err);
-                                    //else console.log(result);
+                                    if (err) console.log(err);
+                                    else console.log(result);
                                     callback(err);
                                 });
                             },
@@ -40,11 +42,12 @@ db.open(function (err, db) {
                                 collection.find({ title: 'second widget' }, { fields: {title:0}}).toArray(function (err, docs) {
                                     if (err) console.log(err);
                                     else console.log('docs' + docs);
-                                    callback(err);
+                                    collection.findOne({}, function (err, doc) { console.log(doc); callback(err);}
+                                    );
                                 });
                             }
                         ], function (err, result) {
-                            consoloe.log('fin');
+                            console.log('fin');
                             if (err) throw err;
                             console.log(result);
                             db.close();
