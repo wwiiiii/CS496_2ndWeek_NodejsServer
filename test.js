@@ -13,14 +13,14 @@ try{
             log("waterfall 1");
             db.open(function (err, db) {
                 if (err) log(err);
-                callback(db);
+                callback(null,db);
             });        
         },
         function (db, callback) {
             log("waterfall 2");
             db.collection('myElement', function (err, collection) {
                 if (err) log(err);
-                callback(collection);
+                callback(null, collection);
             });
         },
         function (collection, callback) {
@@ -29,7 +29,7 @@ try{
             var elem2 = {_id:2, name:"이현",phone:"01087963194",email:"haneone15@kaist.ac.kr"};
             mycon.insert(collection , elem1);
             mycon.insert(collection , elem2);
-            callback(collection);
+            callback(null, collection);
         },
         function (collection, callback) {
             log("waterfall 4");
@@ -37,7 +37,7 @@ try{
             var opt  = {};
             var res = mycon.find(collection , cons, opt);
             log(res);
-            callback();
+            callback(null, res);
         }
     ],
     function (err, result) {
