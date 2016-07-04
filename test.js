@@ -35,8 +35,8 @@ try{
                     mycon.insert(collection, elem2, callback);
                 }
             ], function (err, res) {
-                if (err) callback(err);
-                else callback(null, collection);
+                if (err) { console.log('waterfall 3 error'); console.log(err);}
+                callback(null, collection);
             });
         },
         function (collection, callback) {
