@@ -34,7 +34,7 @@ db.open(function (err, db) {
                                 });
                             },
                             function (callback) {
-                                collection.find({ prices: 25.99 }).toArray(function (err, docs) {
+                                collection.find({ title: 'second widget' }).toArray(function (err, docs) {
                                     if (err) console.log(err);
                                     else console.log('docs' + docs);
                                     callback(err);
@@ -48,7 +48,7 @@ db.open(function (err, db) {
 
                     } catch (err) {
                         console.log('waterfall err' + err);
-                    }
+                    }   
             
                     
                 }
