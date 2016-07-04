@@ -28,13 +28,13 @@ db.open(function (err, db) {
                             },
                             function (callback){
                                 collection.insert(widget2, { safe: true }, function (err, result) {
-                                    if (err) console.log(err);
-                                    else console.log(result);
+                                    //if (err) console.log(err);
+                                    //else console.log(result);
                                     callback(err);
                                 });
                             },
                             function (callback) {
-                                collection.find({ title: 'second widget' }).toArray(function (err, docs) {
+                                collection.find({ title: 'second widget' }, { fields: {title:0}}).toArray(function (err, docs) {
                                     if (err) console.log(err);
                                     else console.log('docs' + docs);
                                     callback(err);
