@@ -12,15 +12,15 @@ try{
         function (callback) {
             log("waterfall 1");
             db.open(function (err, db) {
-                if (err) log(err);
-                callback(null,db);
+                if (err) callback(err, db);
+                else callback(null,db);
             });        
         },
         function (db, callback) {
             log("waterfall 2");
             db.collection('myElement', function (err, collection) {
-                if (err) log(err);
-                callback(null, collection);
+                if (err) callback(err, db);
+                else callback(null, collection);
             });
         },
         function (collection, callback) {
