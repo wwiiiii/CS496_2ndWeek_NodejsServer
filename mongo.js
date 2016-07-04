@@ -44,14 +44,14 @@ db.open(function (err, db) {
                         ], function (err, result) {
                             if (err) throw err;
                             console.log(result);
+                            db.close();
                         })
 
                     } catch (err) {
                         console.log('waterfall err' + err);
                     }
+            
                     
-                    
-                    db.close();
                 }
                 else console.log(err);
             });
