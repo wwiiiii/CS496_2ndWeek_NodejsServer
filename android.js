@@ -12,7 +12,7 @@ function handler(req, res) {
     res.end('Hello from server');
 }
 
-io.sockets.on('connection', function(socket){
+io.sockets.on('connection', function (socket) {
     socket.on('init', function (data) {
         var cli = new Object();
         cli.fbid = data.fbid;
@@ -20,5 +20,14 @@ io.sockets.on('connection', function(socket){
         cli.id = socket.id;
         clients.push(cli);
         io.sockets.socket(cli.id).send('init', data);
+        console.log('init');
+        console.log(socket);
+        console.log(cli);
+    });
+
+    socket.on('disconnect', function () {
+        console.log('disconnet');
+        console.log(socket);
+
     });
 });
