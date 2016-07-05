@@ -20,7 +20,8 @@ io.sockets.on('connection', function (socket) {
         cli.name = data.name;
         cli.id = socket.id;
         clients.push(cli);
-        io.sockets.connected[cli.id].send('init', data);
+        //io.sockets.connected[cli.id].send('init', data);
+        io.to(cli.id).emit('init', data);
         console.log('init');
         console.log(socket.id);
         console.log(cli);
