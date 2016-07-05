@@ -37,11 +37,18 @@ function sendContactToDb(clientdata) {
             },
             function (collection, callback) {
                 log("waterfall 3");
+                var task = [];
                 for (var i = 0; i < phoneContact.length; i++) {
-                    mycon.insert(collection, phoneContact[i], null);
+                    task.push(
+                        function(callb){
+                            mycon.insert(collection, phoneContact[i], callb);
+                        }
+                    );
                 }
-                callback(null, collection);
-                
+                async.waterfall(task, function (err, res) {
+                    if (err) callback(err);
+                    else callback(null, collection);
+                });
             },
             function (collection, callback) {
                 log("waterfall 4");
