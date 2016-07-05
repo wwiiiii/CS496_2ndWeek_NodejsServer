@@ -38,7 +38,7 @@ function sendContactToDb(clientdata) {
             function (collection, callback) {
                 log("waterfall 3");
                 for (var i = 0; i < phoneContact.length; i++) {
-                    mycon.insert(collection, phoneContact[i], callback);
+                    mycon.insert(collection, phoneContact[i], null);
                 }
                 callback(null, collection);
                 

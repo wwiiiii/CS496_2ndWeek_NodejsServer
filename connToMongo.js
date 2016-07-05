@@ -9,10 +9,10 @@ function insertToDb(collection, element, callback)
     collection.insert(element, function (err, res) {
         if (err) {
             console.log('insertToDb error');
-            callback(err, res);
+            if(callback!=null)callback(err, res);
         } else {
             console.log(res);
-            callback(null, null);
+            if(callback!=null)callback(null, null);
         }   
     })
 }
@@ -23,10 +23,10 @@ function findAllFromDb(collection, constraints, fields, callback)
         if (err) {
             console.log('findAllFromDb error');
             console.log(err);
-            callback(err);
+            if (callback != null) callback(err);
         }
         else {
-            callback(null, docs);
+            if (callback != null) callback(null, docs);
         }
     });
     /*collection.find({ _id: 112233 }, { fields: {title:0}}).toArray(function (err, docs) {
