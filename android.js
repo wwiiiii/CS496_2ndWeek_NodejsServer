@@ -3,17 +3,9 @@ var app = http.createServer(handler);
 var io = require('socket.io').listen(app);
 var fs = require('fs');
 
-var clients = [];
+var clients = {};
 
 app.listen(8124, function () { console.log('start listen');});
-
-function getIdxBySockID(sockid)
-{
-    for (var i = 0 ; i < clients.length; i++)
-    {
-        if (clients[i].id == sockid) return i;
-    }
-}
 
 function handler(req, res) {
     res.writeHead(200, { 'content-type': 'text/plain' });
@@ -22,19 +14,17 @@ function handler(req, res) {
 
 io.sockets.on('connection', function (socket) {
     var clie = new Object();
-    clie.id = socket.id;
-    clients.push(clie);
+    clients[socket.id] = clie;
 
     socket.on('init', function (data) {
         var cli = new Object();
-        var idx = getIdxBySockID(socket.id);
         data = JSON.parse(data);
-        clients[idx].fbid = data.fbid;
-        clients[idx].name = data.name;
-        io.to(clients[idx].id).emit('init', data);
+        clients[socket.id].fbid = data.fbid;
+        clients[socket.id].name = data.name;
+        io.to(socket.id).emit('init', data);
         console.log('init');
         console.log(socket.id);
-        console.log(clients[idx]);
+        console.log(clients[socket.id]);
         console.log(data);
         console.log(clients);
         console.log("");
@@ -49,6 +39,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('disconnect', function () {
         console.log('disconnet');
         console.log(socket.id);
+        delete clients[socket.id];
         console.log("");
     });
 });
