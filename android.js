@@ -29,8 +29,8 @@ io.sockets.on('connection', function (socket) {
         var cli = new Object();
         var idx = getIdxBySockID(socket.id);
         data = JSON.parse(data);
-        clients[i].fbid = data.fbid;
-        clients[i].name = data.name;
+        clients[idx].fbid = data.fbid;
+        clients[idx].name = data.name;
         //io.sockets.connected[cli.id].send('init', data);
         io.to(cli.id).emit('init', data);
         console.log('init');
