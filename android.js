@@ -32,10 +32,10 @@ io.sockets.on('connection', function (socket) {
         clients[idx].fbid = data.fbid;
         clients[idx].name = data.name;
         //io.sockets.connected[cli.id].send('init', data);
-        io.to(cli.id).emit('init', data);
+        io.to(clients[idx].id).emit('init', data);
         console.log('init');
         console.log(socket.id);
-        console.log(cli);
+        console.log(clients[idx]);
         console.log(data);
     });
 
