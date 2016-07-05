@@ -18,7 +18,9 @@ function sendContactToDb(clientdata)
     var userid = clientdata.userid;
     var userpw = clientdata.userpw;
     db.open(function (err, db) {
+        if (err) console.log(err);
         db.collection(userid, function (err, collection) {
+            if (err) console.log(err);
             var tasks = {};
             for (var i = 0; i < phoneContact.length; i++) {
                 tasks['func' + i] = new function (callback) {
@@ -26,6 +28,7 @@ function sendContactToDb(clientdata)
                 }
             }
             async.parallel(tasks, function (err, results) {
+                if (err) console.log(err);
                 console.log(results);
             });
         })
