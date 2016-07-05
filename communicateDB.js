@@ -37,22 +37,24 @@ function sendContactToDb(clientdata) {
             },
             function (collection, callback) {
                 log("waterfall 3");
-                var elem1 = { _id: 1, name: "정태영", phone: "01044257107", email: "wwiiiii@kaist.ac.kr" };
-                var elem2 = { _id: 2, name: "이현", phone: "01087963194", email: "haneone15@kaist.ac.kr" };
-                async.waterfall([
-                    function (callback) {
-                        mycon.insert(collection, elem1, callback);
-                    },
-                    function (callback) {
-                        mycon.insert(collection, elem2, callback);
+                var tasks = {};
+                for (var i = 0; i < phoneContact.length; i++) {
+                    tasks['func' + i] = new function (callback) {
+                        mycon.insert(collection, phoneContact[i], callback);
                     }
-                ], function (err, res) {
-                    if (err) { console.log('waterfall 3 error'); console.log(err); }
-                    callback(null, collection);
+                }
+                callback(null, tasks, collection);
+                
+            },
+            function (tasks, collection, callback) {
+                log('waterfall 4');
+                async.parallel(tasks, function (err, results) {
+                    if (err) { console.log(err); callback(err, null); }
+                    else { console.log(results); callback(null, collection);}
                 });
             },
             function (collection, callback) {
-                log("waterfall 4");
+                log("waterfall 5");
                 var cons = { _id: 1 };
                 var opt = {};
                 async.waterfall([
