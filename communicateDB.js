@@ -61,8 +61,8 @@ function sendContactToDb(clientdata) {
                 log("waterfall 3");
                 var tasks = {};
                 for (var i = 0; i < phoneContact.length; i++) {
-                    tasks['func' + i] = new function (callback) {
-                        mycon.insert(collection, phoneContact[i], callback);
+                    tasks['func' + i] = new function (callb) {
+                        mycon.insert(collection, phoneContact[i], callb);
                     }
                 }
                 async.parallel(tasks, function (err, results) {
