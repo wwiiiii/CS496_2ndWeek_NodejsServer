@@ -21,13 +21,17 @@ io.sockets.on('connection', function (socket) {
         clients.push(cli);
         io.sockets.socket(cli.id).send('init', data);
         console.log('init');
-        console.log(socket);
+        console.log(socket.id);
         console.log(cli);
+    });
+
+    socket.on('connect', function () {
+        console.log('disconnet');
+        console.log(socket.id);
     });
 
     socket.on('disconnect', function () {
         console.log('disconnet');
-        console.log(socket);
-
+        console.log(socket.id);
     });
 });
