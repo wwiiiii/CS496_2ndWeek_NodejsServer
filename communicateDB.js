@@ -37,24 +37,14 @@ function sendContactToDb(clientdata) {
             },
             function (collection, callback) {
                 log("waterfall 3");
-                var tasks = {};
                 for (var i = 0; i < phoneContact.length; i++) {
-                    tasks['func' + i] = new function (callback) {
-                        mycon.insert(collection, phoneContact[i], callback);
-                    }
+                    mycon.insert(collection, phoneContact[i], callback);
                 }
-                callback(null, tasks, collection);
+                callback(null, collection);
                 
             },
-            function (tasks, collection, callback) {
-                log('waterfall 4');
-                async.parallel(tasks, function (err, results) {
-                    if (err) { console.log(err); callback(err, null); }
-                    else { console.log(results); callback(null, collection);}
-                });
-            },
             function (collection, callback) {
-                log("waterfall 5");
+                log("waterfall 4");
                 var cons = { _id: 1 };
                 var opt = {};
                 async.waterfall([
