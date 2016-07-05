@@ -37,10 +37,12 @@ function sendContactToDb(clientdata) {
             },
             function (collection, callback) {
                 log("waterfall 3");
-                var task = {};
-                for (var i = 0; i < phoneContact.length; i++) {
-                    task['func' + i] = makeTaskFunc(i, callb);
-                }
+                var task = [];
+                phoneContact.forEach(function (item) {
+                    task.push(function (callb) {
+                        mycon.insert(collection, item, callb);
+                    });
+                });
                 async.parallel(task, function (err, results) {
                     if (err) callback(err);
                     else callback(null, collection);
