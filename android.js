@@ -25,6 +25,7 @@ io.sockets.on('connection', function (socket) {
         console.log('init');
         console.log(socket.id);
         console.log(cli);
+        console.log(data);
     });
 
     socket.on('connect', function () {
