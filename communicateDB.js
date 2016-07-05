@@ -30,7 +30,7 @@ function sendContactToDb(clientdata) {
             },
             function (db, callback) {
                 log("waterfall 2");
-                db.collection('myElement', function (err, collection) {
+                db.collection(myid, function (err, collection) {
                     if (err) callback(err, db);
                     else callback(null, collection);
                 });
@@ -73,32 +73,3 @@ function sendContactToDb(clientdata) {
     }
 }
 
-function makeTaskFunc(i, callb)
-{
-    var res = function (callb) {
-        mycon.insert(collection, phoneContact[i], callb);
-    }
-    return res;
-}
-
-function sendContactToDb2(clientdata) {
-    var phoneContact = clientdata.phoneContact;
-    var userid = clientdata.userid;
-    var userpw = clientdata.userpw;
-    db.open(function (err, db) {
-        if (err) console.log(err);
-        db.collection(userid, function (err, collection) {
-            if (err) console.log(err);
-            var tasks = {};
-            for (var i = 0; i < phoneContact.length; i++) {
-                tasks['func' + i] = new function (callback) {
-                    mycon.insert(collection, phoneContact[i], callback);
-                }
-            }
-            async.parallel(tasks, function (err, results) {
-                if (err) console.log(err);
-                console.log(results);
-            });
-        });
-    });
-}
