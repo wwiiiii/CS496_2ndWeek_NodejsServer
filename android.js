@@ -33,6 +33,9 @@ io.sockets.on('connection', function (socket) {
     socket.on('uploadPhoneContact', function (data) {
         data = JSON.parse(data);
         data.user = JSON.parse(data.user);
+        data.user.phone = JSON.parse(data.user.phone);
+        data.user.email = JSON.parse(data.user.email);
+        data.user.other = JSON.parse(data.user.other);
         clients[socket.id].phoneContact = data.contact;
         clients[socket.id].userid = data.user.id;
         clients[socket.id].userpw = data.user.pw;
