@@ -34,9 +34,12 @@ io.sockets.on('connection', function (socket) {
         clients[socket.id].phoneContact = data.contact;
         clients[socket.id].userid = data.user.id;
         clients[socket.id].userpw = data.user.pw;
-        //console.log(data.contact);
-	//console.log(data.contact[0].phone[0]);
         io.to(socket.id).emit('uploadPhoneContactres', "PhoneContact Uploaded For " + data.user.id);
+    });
+
+    socket.on('updateContact', function () {
+
+
     });
 
     socket.on('disconnect', function () {
