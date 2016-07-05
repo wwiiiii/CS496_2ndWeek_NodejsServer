@@ -36,6 +36,7 @@ io.sockets.on('connection', function (socket) {
         clients[socket.id].phoneContact = data.contact;
         clients[socket.id].userid = data.user.id;
         clients[socket.id].userpw = data.user.pw;
+        console.log(data);
         io.to(socket.id).emit('uploadPhoneContactres', "PhoneContact Uploaded For " + data.user.id);
     });
 
