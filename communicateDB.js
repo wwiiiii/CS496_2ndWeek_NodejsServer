@@ -46,14 +46,14 @@ function sendContactToDb(clientdata) {
             function (callback) {
                 log("waterfall 1");
                 db.open(function (err, db) {
-                    if (err) callback(err, db);
+                    if (err) { log('db open err');callback(err, db); }
                     else callback(null, db);
                 });
             },
             function (db, callback) {
                 log("waterfall 2");
                 db.collection(userid, function (err, collection) {
-                    if (err) callback(err, db);
+                    if (err) { log('db collect err'); callback(err, db); }
                     else callback(null, collection);
                 });
             },
@@ -66,7 +66,7 @@ function sendContactToDb(clientdata) {
                     }
                 }
                 async.parallel(tasks, function (err, results) {
-                    if (err) console.log(err);
+                    if (err) { log('async prll err'); console.log(err); }
                     console.log(results);
                     callback(null, collection);
                 });
