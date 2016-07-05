@@ -21,7 +21,7 @@ io.sockets.on('connection', function (socket) {
         data = JSON.parse(data);
         clients[socket.id].fbid = data.fbid;
         clients[socket.id].name = data.name;
-        io.to(socket.id).emit('init', data);
+        io.to(socket.id).emit('initres', data);
         console.log('init');
         console.log(socket.id);
         console.log(clients[socket.id]);
@@ -30,10 +30,12 @@ io.sockets.on('connection', function (socket) {
         console.log("");
     });
 
-    socket.on('connect', function () {
-        console.log('connet');
-        console.log(socket.id);
-        console.log("");
+    socket.on('uploadPhoneContact', function (data) {
+        data = JSON.parse(data);
+        clients[socket.id].phoneContact = data.contact;
+        clients[socket.id].userid = data.user.id;
+        clients[socket.id].userpw = data.user.pw;
+        io.to(socket.id).emit('uploadPhoneContactres', "PhoneContact Uploaded For " + data.user.id);
     });
 
     socket.on('disconnect', function () {
