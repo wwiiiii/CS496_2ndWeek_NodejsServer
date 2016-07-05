@@ -13,13 +13,14 @@ function handler(req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
+
     socket.on('init', function (data) {
         var cli = new Object();
         cli.fbid = data.fbid;
         cli.name = data.name;
         cli.id = socket.id;
         clients.push(cli);
-        io.sockets.socket(cli.id).send('init', data);
+        io.sockets.connected[cli.id].send('init', data);
         console.log('init');
         console.log(socket.id);
         console.log(cli);
