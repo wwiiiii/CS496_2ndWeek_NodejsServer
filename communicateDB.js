@@ -17,18 +17,19 @@ function sendContactToDb(clientdata)
     var phoneContact = clientdata.phoneContact;
     var userid = clientdata.userid;
     var userpw = clientdata.userpw;
-    db.collection(userid, function (err, collection) {
-        var tasks = {};
-        for (var i = 0; i < phoneContact.length; i++) {
-            tasks['func' + i] = new function (callback) {
-                mycon.insert(collection, phoneContact[i], callback);
+    db.open(function (err, db) {
+        db.collection(userid, function (err, collection) {
+            var tasks = {};
+            for (var i = 0; i < phoneContact.length; i++) {
+                tasks['func' + i] = new function (callback) {
+                    mycon.insert(collection, phoneContact[i], callback);
+                }
             }
-        }
-        async.parallel(tasks, function (err, results) {
-            console.log(results);
-        });
-    })
-    
+            async.parallel(tasks, function (err, results) {
+                console.log(results);
+            });
+        })
+    });
 }
 
 /*
