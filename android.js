@@ -31,21 +31,24 @@ io.sockets.on('connection', function (socket) {
         data = JSON.parse(data);
         clients[idx].fbid = data.fbid;
         clients[idx].name = data.name;
-        //io.sockets.connected[cli.id].send('init', data);
         io.to(clients[idx].id).emit('init', data);
         console.log('init');
         console.log(socket.id);
         console.log(clients[idx]);
         console.log(data);
+        console.log(clients);
+        console.log("");
     });
 
     socket.on('connect', function () {
         console.log('connet');
         console.log(socket.id);
+        console.log("");
     });
 
     socket.on('disconnect', function () {
         console.log('disconnet');
         console.log(socket.id);
+        console.log("");
     });
 });
