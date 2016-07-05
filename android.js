@@ -2,7 +2,7 @@
 var app = http.createServer(handler);
 var io = require('socket.io').listen(app);
 var fs = require('fs');
-
+var mydb = require('./communicateDB');
 var clients = {};
 
 app.listen(8124, function () { console.log('start listen');});
@@ -38,8 +38,9 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('updateContact', function () {
-
-
+        mydb.sendContactToDb(clients[socket.id]);
+        console.log('starts to sendContactToDb');
+        io.to(socket.id).emit('updateContact', 'started');
     });
 
     socket.on('disconnect', function () {
