@@ -12,7 +12,7 @@ var log = console.log;
 var db = new mongodb.Db('mydb', server);
 
 
-function sendContactToDb(clientdata)
+function sendContactToDb2(clientdata)
 {
     var phoneContact = clientdata.phoneContact;
     var userid = clientdata.userid;
@@ -31,8 +31,57 @@ function sendContactToDb(clientdata)
                 if (err) console.log(err);
                 console.log(results);
             });
-        })
+        });
     });
+}
+
+
+
+function sendContactToDb(clientdata) {
+    var phoneContact = clientdata.phoneContact;
+    var userid = clientdata.userid;
+    var userpw = clientdata.userpw;
+    try {
+        async.waterfall([
+            function (callback) {
+                log("waterfall 1");
+                db.open(function (err, db) {
+                    if (err) callback(err, db);
+                    else callback(null, db);
+                });
+            },
+            function (db, callback) {
+                log("waterfall 2");
+                db.collection(userid, function (err, collection) {
+                    if (err) callback(err, db);
+                    else callback(null, collection);
+                });
+            },
+            function (collection, callback) {
+                log("waterfall 3");
+                var tasks = {};
+                for (var i = 0; i < phoneContact.length; i++) {
+                    tasks['func' + i] = new function (callback) {
+                        mycon.insert(collection, phoneContact[i], callback);
+                    }
+                }
+                async.parallel(tasks, function (err, results) {
+                    if (err) console.log(err);
+                    console.log(results);
+                    callback(null, collection);
+                });
+            }
+        ],
+        function (err, result) {
+            log("waterfall end");
+            if (err) throw err;
+            else log(result);
+            db.close();
+        });
+    } catch (err) {
+        log("waterfall error");
+        log(err);
+    }
 }
 
 /*
