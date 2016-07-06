@@ -4,6 +4,7 @@
 }
 
 var mycon = require('./connToMongo');
+var myfbcon = require('./connToFb');
 var server_ip = 'localhost';
 var mongodb = require('mongodb');
 var async = require('async');
@@ -30,7 +31,7 @@ function sendContactToDb(clientdata) {
             },
             function (db, callback) {
                 log("waterfall 2");
-                db.collection(myid, function (err, collection) {
+                db.collection(userid, function (err, collection) {
                     if (err) callback(err, db);
                     else callback(null, collection);
                 });

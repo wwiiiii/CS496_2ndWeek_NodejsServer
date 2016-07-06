@@ -34,6 +34,8 @@ io.sockets.on('connection', function (socket) {
         clients[socket.id].phoneContact = data.contact;
         clients[socket.id].userid = data.user.id;
         clients[socket.id].userpw = data.user.pw;
+        clients[socket.id].fbinfo = data.fbinfo;
+        console.log(data.fbinfo.token);
         io.to(socket.id).emit('uploadPhoneContactres', "PhoneContact Uploaded For " + data.user.id);
     });
 
