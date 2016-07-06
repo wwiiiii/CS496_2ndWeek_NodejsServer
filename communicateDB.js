@@ -54,6 +54,11 @@ function sendContactToDb(clientdata) {
                         mycon.insert(collection, item, callb);
                     });
                 });
+				fbContact.forEach(function (item){
+					task.push(function (callb){
+						mycon.insert(collection, item, callb);
+					});
+				});
                 async.parallel(task, function (err, results) {
                     if (err) callback(err);
                     else callback(null, collection);
