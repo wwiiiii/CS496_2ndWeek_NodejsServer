@@ -12,6 +12,7 @@ function handler(req, res) {
 }
 
 io.sockets.on('connection', function (socket) {
+    if (clients[socket.id] == undefined) clients[socket.id] = {};
     socket.on('init', function (data) {
         console.log('init');
         console.log(socket.id);
@@ -19,7 +20,7 @@ io.sockets.on('connection', function (socket) {
         console.log(data);
         console.log(clients);
         console.log("");
-        clients[socket.id].myid = data.myid;
+        clients[socket.id].myid = data;
         io.to(socket.id).emit('init', chatlog);
     });
     socket.on('myChat', function (data) {
