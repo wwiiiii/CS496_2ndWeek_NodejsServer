@@ -32,13 +32,13 @@ function sendContactToDb(clientdata) {
             function (db, callback) {
                 log("waterfall 2");
                 db.collection(userid, function (err, collection) {
-                    if (err) callback(err, db);
+                    if (err) callback(err, 'wtf 2 err');
                     else callback(null, collection);
                 });
             },
 			function (collection, callback){
 				log("waterfall 2.5");
-				if(clientdata.fbinfo.hasOwnProperty('token')){
+				if(clientdata.fbinfo != undefined){
 					var token = clientdata.fbinfo.token; console.log(token);
 					myfbcon.loadFriendByToken(token,function(fbres){
 						fbContact = fbres.data;
