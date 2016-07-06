@@ -46,6 +46,15 @@ function sendContactToDb(clientdata) {
 					})
 				}
 			},
+            function (collection, callback){
+                log('waterfall 2.75 / deleteEverything');
+                collection.deleteMany({},null, function (err, res) {
+                    console.log('delete all');
+                    if (err) { console.log(err); }
+                    else console.log('res');
+                    callback(null, collection);
+                })
+            },
             function (collection, callback) {
                 log("waterfall 3");
                 var task = [];
