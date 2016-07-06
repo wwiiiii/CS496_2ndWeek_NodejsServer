@@ -22,6 +22,10 @@ function loadFriendByToken(token, finCallback) {
 		});
 	},
 	function(res, callback){
+		for(var i =0; i < res.data.length; i++)
+		{		
+			res.data[i].src = "facebook";
+		}
 		callback(null, res);
 	}],
 	function (err, res){
