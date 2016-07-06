@@ -26,12 +26,14 @@ function loadFriendByToken(token, finCallback) {
 	        	console.log('finished');
 		});
 	},
-	function(res, callback){
-		for(var i =0; i < res.data.length; i++)
-		{		
-			res.data[i].src = "facebook";
-		}
-		callback(null, res);
+	function (res, callback) {
+	    if (res == undefined) callback(callback(null, null));
+	    else {
+	        for (var i = 0; i < res.data.length; i++) {
+	            res.data[i].src = "facebook";
+	        }
+	        callback(null, res);
+	    }
 	}],
 	function (err, res){
 		console.log('waterfall end');
