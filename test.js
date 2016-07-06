@@ -19,6 +19,8 @@ try{
         function (db, callback) {
             log("waterfall 2");
             db.collection('myElement', function (err, collection) {
+		log('*******************');
+		log(db); log(collection);
                 if (err) callback(err, db);
                 else callback(null, collection);
             });
