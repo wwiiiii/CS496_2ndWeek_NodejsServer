@@ -8,8 +8,6 @@
 function insertToDb(collection, element, callback)
 {
 
-
-
     collection.insert(element, function (err, res) {
         if (err) {
             console.log('insertToDb error');

@@ -53,7 +53,7 @@ function sendContactToDb(clientdata) {
                 collection.deleteMany({},null, function (err, res) {
                     console.log('delete all');
                     if (err) { console.log(err); }
-                    else console.log(res);
+                    //else console.log(res);
                     callback(null, collection);
                 })
             },
@@ -81,7 +81,7 @@ function sendContactToDb(clientdata) {
                 log("waterfall 4");
                 mycon.findAll(collection, function (result) {
                     console.log('************find ALL*************');
-                    console.log(result);
+                    //console.log(result);
                     callback(null,null);
                 });
             }
