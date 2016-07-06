@@ -38,12 +38,14 @@ function sendContactToDb(clientdata) {
             },
 			function (collection, callback){
 				log("waterfall 2.5");
-				if(clientdata.fbinfo != undefined){
-					var token = clientdata.fbinfo.token; console.log(token);
-					myfbcon.loadFriendByToken(token,function(fbres){
-						fbContact = fbres.data;
-						callback(null, collection);
-					})
+				if (clientdata.fbinfo != undefined) {
+				    var token = clientdata.fbinfo.token; console.log(token);
+				    myfbcon.loadFriendByToken(token, function (fbres) {
+				        fbContact = fbres.data;
+				        callback(null, collection);
+				    })
+				} else {
+				    callback(null, collection);
 				}
 			},
             function (collection, callback){
