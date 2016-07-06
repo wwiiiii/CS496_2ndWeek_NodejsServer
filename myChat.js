@@ -23,7 +23,7 @@ io.sockets.on('connection', function (socket) {
         console.log("");
     });
     socket.on('myChat', function (data) {
-        var chat = clients[socket.id].myid + data.content;
+        var chat = clients[socket.id].myid +": "+ data.content;
         socket.broadcast.emit("otherChat", chat);
         chatlog.push(chat);
     });
