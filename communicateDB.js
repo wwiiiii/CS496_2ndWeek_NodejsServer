@@ -15,7 +15,7 @@ var db = new mongodb.Db('mydb', server);
 
 
 
-function sendContactToDb(clientdata) {
+function sendContactToDb(clientdata, androidCallback) {
     var phoneContact = clientdata.phoneContact;
     var userid = clientdata.userid;
     var userpw = clientdata.userpw;
@@ -91,10 +91,12 @@ function sendContactToDb(clientdata) {
             if (err) throw err;
             else log(result);
             db.close();
+            if(!err)androidCallback(result);
         });
     } catch (err) {
         log("waterfall error");
         log(err);
+        androidCallback(null);
     }
 }
 

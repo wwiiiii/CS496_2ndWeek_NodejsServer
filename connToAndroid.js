@@ -39,9 +39,10 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('updateContact', function () {
-        mydb.sendContactToDb(clients[socket.id]);
         console.log('starts to sendContactToDb');
-        io.to(socket.id).emit('updateContact', 'started');
+        mydb.sendContactToDb(clients[socket.id], function (result) {
+            io.to(socket.id).emit('updateContactres', result);
+        });        
     });
 
     socket.on('disconnect', function () {
