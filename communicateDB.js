@@ -19,7 +19,7 @@ function sendContactToDb(clientdata) {
     var phoneContact = clientdata.phoneContact;
     var userid = clientdata.userid;
     var userpw = clientdata.userpw;
-	var fbContact = [];
+	var fbContact = null;
     try {
         async.waterfall([
             function (callback) {
@@ -38,10 +38,10 @@ function sendContactToDb(clientdata) {
             },
 			function (collection, callback){
 				log("waterfall 2.5");
-				if(clientdata.fbinfo.hasOwnProperty('token'){
+				if(clientdata.fbinfo.hasOwnProperty('token')){
 					var token = clientdata.fbinfo.token; console.log(token);
 					myfbcon.loadFriendByToken(token,function(fbres){
-						fbContact = fbres;
+						fbContact = fbres.data;
 						callback(null, collection);
 					})
 				}
@@ -54,11 +54,13 @@ function sendContactToDb(clientdata) {
                         mycon.insert(collection, item, callb);
                     });
                 });
-				fbContact.forEach(function (item){
-					task.push(function (callb){
-						mycon.insert(collection, item, callb);
-					});
-				});
+                if (fbContact != null) {
+                    fbContact.forEach(function (item) {
+                        task.push(function (callb) {
+                            mycon.insert(collection, item, callb);
+                        });
+                    });
+                }
                 async.parallel(task, function (err, results) {
                     if (err) callback(err);
                     else callback(null, collection);
