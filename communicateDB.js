@@ -68,7 +68,7 @@ function sendContactToDb(clientdata) {
             },
             function (collection, callback) {
                 log("waterfall 4");
-                mycon.findAllFromDb(collection, function (result) {
+                mycon.findAll(collection, function (result) {
                     console.log('************find ALL*************');
                     console.log(result);
                     callback(null,null);

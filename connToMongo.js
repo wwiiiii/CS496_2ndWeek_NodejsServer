@@ -39,7 +39,7 @@ function findFromDb(collection, constraints, fields, callback)
 function findAllFromDb(collection, callback)
 {
     var result = [];
-    var cursor = collection.find();
+    /*var cursor = collection.find();
     cursor.each(function (err, doc) {
         if (err) console.log(err);
         else {
@@ -50,7 +50,11 @@ function findAllFromDb(collection, callback)
                 console.log('doc is null');
             }
         }
+    });*/
+    collection.find().toArray(function (err, docs) {
+        if (err) { console.log('findall error'); console.log(err); callback(null); }
+        else {
+            callback(docs);
+        }
     });
-    console.log(result);
-    callback(result);
 }
