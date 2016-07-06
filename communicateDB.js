@@ -82,7 +82,7 @@ function sendContactToDb(clientdata, androidCallback) {
                 mycon.findAll(collection, function (result) {
                     console.log('************find ALL*************');
                     //console.log(result);
-                    callback(null,null);
+                    callback(null,result);
                 });
             }
         ],
