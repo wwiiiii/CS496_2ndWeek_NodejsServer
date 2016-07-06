@@ -22,6 +22,7 @@ io.sockets.on('connection', function (socket) {
         clients[socket.id].myid = data;
         io.to(socket.id).emit('init', chatlog);
         socket.broadcast.emit('otherChat', data + " has joined.");
+        chatlog.push(data + " has joined.");
     });
     socket.on('myChat', function (data) {
         console.log(clients[socket.id].myid);
