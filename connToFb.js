@@ -44,7 +44,3 @@ function loadFriendByToken(token, finCallback) {
 }
 //var token = 'EAACEdEose0cBAJWwOTloOxdSGk8xIfUvuppX8AHPts5xQQrPWhb0G4rgNJ8VGJ8wjIhrO3dzF4YQbk7xv2YnqDwt4spJy5ZCmatCB2cIluKifYJJVtWRYbiZAZCbj1ZA1T7jxp7lAdgpi0WL1al64FIuNGjn8YjqYZC01rEBZBfgZDZD';
 var token = 'EAACEdEose0cBAPtdbKoznrP1YocJYXcYxolBrSDlwMoHQv3i9oaHcw8RTcrzZCisisFf3fm3qUoYphcc5Vmo0SReZCyAHIZCVWIpyaPSMC163hGO3YX6mRyHZB0ncw0oVpsEG4t5RQpsmE9xiFKh258svJH2Bmc734zUGbOOVQZDZD'
-
-var res = loadFriendByToken(token, function(res){
-	console.log(res.data[0].name);
-});
