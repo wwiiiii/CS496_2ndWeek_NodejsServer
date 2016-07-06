@@ -25,6 +25,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('myChat', function (data) {
         var chat = clients[socket.id].myid +": "+ data.content;
         socket.broadcast.emit("otherChat", chat);
+        console.log(data.content);
         chatlog.push(chat);
     });
 
