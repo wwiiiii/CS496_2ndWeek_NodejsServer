@@ -68,15 +68,11 @@ function sendContactToDb(clientdata) {
             },
             function (collection, callback) {
                 log("waterfall 4");
-                var cons = { _id: 1 };
-                var opt = {};
-                async.waterfall([
-                    function (callback) { mycon.find(collection, cons, opt, callback); },
-                    function (docs, callback) { console.log(docs); callback(null, null); }
-                ], function (err, res) {
-                    if (err) callback(err);
-                    else callback(null, null);
-                })
+                mycon.findAllFromDb(collection, function (result) {
+                    console.log('************find ALL*************');
+                    console.log(result);
+                    callback(null,null);
+                });
             }
         ],
         function (err, result) {
