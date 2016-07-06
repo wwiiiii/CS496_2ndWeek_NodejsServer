@@ -13,14 +13,14 @@ function handler(req, res) {
 
 io.sockets.on('connection', function (socket) {
     socket.on('init', function (data) {
-        clients[socket.id].myid = data.myid;
-        io.to(socket.id).emit('init', chatlog);
         console.log('init');
         console.log(socket.id);
         console.log(clients[socket.id]);
         console.log(data);
         console.log(clients);
         console.log("");
+        clients[socket.id].myid = data.myid;
+        io.to(socket.id).emit('init', chatlog);
     });
     socket.on('myChat', function (data) {
         var chat = clients[socket.id].myid +": "+ data.content;
