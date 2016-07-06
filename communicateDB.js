@@ -51,7 +51,7 @@ function sendContactToDb(clientdata) {
                 collection.deleteMany({},null, function (err, res) {
                     console.log('delete all');
                     if (err) { console.log(err); }
-                    else console.log('res');
+                    else console.log(res);
                     callback(null, collection);
                 })
             },
