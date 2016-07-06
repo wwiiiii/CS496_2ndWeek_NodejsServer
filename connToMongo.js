@@ -11,6 +11,7 @@ function insertToDb(collection, element, callback)
             console.log('insertToDb error');
             if(callback!=null)callback(err, res);
         } else {
+            console.log('********insert To db succeed*********');
             console.log(res);
             if(callback!=null)callback(null, null);
         }   
