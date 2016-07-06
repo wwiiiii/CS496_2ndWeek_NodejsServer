@@ -1,4 +1,9 @@
-﻿//query : https형식, GET, 
+﻿module.exports = {
+	loadFriendByToken : loadFriendByToken
+}
+
+
+//query : https형식, GET, 
 //https://graph.facebook.com/me?fields=id,name,email&access_token=token_string
 var https = require('https');
 var async = require('async');

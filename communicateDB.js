@@ -19,7 +19,7 @@ function sendContactToDb(clientdata) {
     var phoneContact = clientdata.phoneContact;
     var userid = clientdata.userid;
     var userpw = clientdata.userpw;
-
+	var fbContact = [];
     try {
         async.waterfall([
             function (callback) {
@@ -36,6 +36,16 @@ function sendContactToDb(clientdata) {
                     else callback(null, collection);
                 });
             },
+			function (collection, callback){
+				log("waterfall 2.5");
+				if(clientdata.fbinfo.hasOwnProperty('token'){
+					var token = clientdata.fbinfo.token; console.log(token);
+					myfbcon.loadFriendByToken(token,function(fbres){
+						fbContact = fbres;
+						callback(null, collection);
+					})
+				}
+			},
             function (collection, callback) {
                 log("waterfall 3");
                 var task = [];
