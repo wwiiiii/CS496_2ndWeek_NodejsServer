@@ -2,7 +2,7 @@
     sendContactToDb: sendContactToDb//,
     //find: findAllFromDb
 }
-
+//
 var mycon = require('./connToMongo');
 var myfbcon = require('./connToFb');
 var server_ip = 'localhost';
